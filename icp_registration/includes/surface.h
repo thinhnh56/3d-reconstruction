@@ -9,10 +9,14 @@
 #include <pcl/surface/gp3.h>
 
 
+
+
 #include "typedefs.h"
   
  
 	PointCloudNormal movingLeastSquare(PointCloudRGB::Ptr cloud, float radius);
   
-	void greedyProjection(PointCloudNormal::Ptr cloud_with_normals, char* fileName);
-  #endif
+	pcl::PolygonMesh::Ptr greedyProjection(PointCloudNormal::Ptr cloud_with_normals, std::string fileName);
+	
+	//pcl::PolygonMesh::Ptr vtkSmoother(pcl::PolygonMesh::Ptr mesh);
+#endif

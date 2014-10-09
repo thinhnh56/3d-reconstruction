@@ -1,4 +1,5 @@
 #include "../visualization.h"
+#include <string>
 
 void view( PointCloudRGB & cloud ) {
         pcl::visualization::CloudViewer viewer1("Cloud Viewer");
@@ -7,6 +8,14 @@ void view( PointCloudRGB & cloud ) {
 
         return;
 }
+
+
+void drawLine(pcl::visualization::PCLVisualizer &vis, PointRGB start_point, PointRGB end_point, std::string line_id, double r, double g, double b){
+	
+	vis.addLine (start_point, end_point, r, g, b, line_id);
+	
+	
+};
 
 
 void showCloudsLeft(const PCD cloud_target, const PCD cloud_source, pcl::visualization::PCLVisualizer *v, int vp1)

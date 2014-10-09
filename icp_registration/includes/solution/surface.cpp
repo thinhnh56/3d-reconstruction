@@ -25,14 +25,14 @@
 	  
   }
   
-  	void greedyProjection(PointCloudNormal::Ptr cloud_with_normals, char* fileName){
+  	pcl::PolygonMesh::Ptr greedyProjection(PointCloudNormal::Ptr cloud_with_normals, std::string fileName){
 		// Create search tree*
 		pcl::search::KdTree<pcl::PointNormal>::Ptr tree2 (new pcl::search::KdTree<pcl::PointNormal>);
 		tree2->setInputCloud (cloud_with_normals);
 
 		// Initialize objects
 		pcl::GreedyProjectionTriangulation<pcl::PointNormal> gp3;
-		pcl::PolygonMesh triangles;
+		pcl::PolygonMesh::Ptr triangles(new pcl::PolygonMesh);
 
 		// Set the maximum distance between connected points (maximum edge length)
 		gp3.setSearchRadius (0.025);
@@ -48,8 +48,18 @@
 		// Get result
 		gp3.setInputCloud (cloud_with_normals);
 		gp3.setSearchMethod (tree2);
-		gp3.reconstruct (triangles);
+		gp3.reconstruct (*triangles);
 
-		pcl::io::saveVTKFile (fileName, triangles);
+		pcl::io::saveVTKFile (fileName, *triangles);
+		
+		return triangles;
 
 	}
+	
+	/*pcl::PolygonMesh::Ptr vtkSmoother(pcl::PolygonMesh::Ptr mesh){
+		pcl::surface::VTKSmoother vtkSmoother;
+		vtkSmoother.convertToVTK(*mesh);
+		vtkSmoother.smoothMeshWindowedSinc();
+		vtkSmoother.convertToPCL(*mesh);
+		return mesh;
+	}*/
