@@ -1,0 +1,7 @@
+ông copy data vào thư mục build, với format là : inputCloud0 .... như thường lệ và chạy dòng script sau:
+
+giả sử có 20 input cloud:
+for i in seq(20); mv inputCloud$i.pcd test.pcd; ./passthrough -p; mv test_out.pcd input$i.pcd; done;
+
+sau khi chạy sẽ có một loạt output ở các file input1.pcd input2.pcd .....
+thế nhé :D
