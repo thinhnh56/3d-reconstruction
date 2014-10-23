@@ -151,7 +151,7 @@ void pairAlign (const PointCloudRGB::Ptr cloud_src,
     {
       float min_depth = 1;
       float max_depth = 1.5;
-      float leaf_size = 0.01;
+      float leaf_size = 0.006;
       float radius = 0.05;
       float min_neighbors = 800;
 		

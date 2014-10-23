@@ -182,7 +182,7 @@ int main (int argc, char** argv)
     *data[0].cloud += *output;
   }
   //save the final result to final.pcd
-  pcl::io::savePCDFile("final.pcd", *data[o].cloud, true);
+  pcl::io::savePCDFile("final.pcd", *data[0].cloud, true);
   view(*data[0].cloud);
   
 }
