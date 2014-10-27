@@ -1,0 +1,7 @@
+add_library(load_data load_data.cpp)
+add_library(feature_estimation feature_estimation.cpp)
+add_library(registration registration.cpp)
+add_library(visualization visualization.cpp)
+add_library(filter filter.cpp)
+add_library(surface surface.cpp)
+add_library(utils utils.cpp)
