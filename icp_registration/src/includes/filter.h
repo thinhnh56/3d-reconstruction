@@ -6,24 +6,22 @@
 #include <pcl/filters/passthrough.h>
 #include <pcl/filters/radius_outlier_removal.h>
 
-
-
-void downSampleCloud(const PointCloudRGB::Ptr cloud_src,
-				PointCloudRGB::Ptr sampled_cloud,
-				float VOXEL_GRID_SIZE);
-				
-void
-thresholdDepth ( PointCloudPtr & input, PointCloudPtr filtered, float min_depth, float max_depth);
+void downSampleCloud(const PointCloudRGBPtr cloud_src,
+		PointCloudRGBPtr sampled_cloud, float VOXEL_GRID_SIZE);
 
 void
-downsampleF ( PointCloudPtr input, PointCloudPtr filtered, float leaf_size);
+thresholdDepth(PointCloudRGBPtr & input, PointCloudRGBPtr filtered,
+		float min_depth, float max_depth);
 
 void
-removeOutliers ( PointCloudPtr & input, PointCloudPtr filtered, float radius, int min_neighbors);
+downsample(PointCloudRGBPtr input, PointCloudRGBPtr filtered, float leaf_size);
 
 void
-applyFilters ( PointCloudPtr input, PointCloudPtr filtered, float min_depth, float max_depth, float leaf_size, float radius, 
-              float min_neighbors);
+removeOutliers(PointCloudRGBPtr & input, PointCloudRGBPtr filtered,
+		float radius, int min_neighbors);
 
+void
+applyFilters(PointCloudRGBPtr input, PointCloudRGBPtr filtered,
+		float leaf_size);
 
 #endif

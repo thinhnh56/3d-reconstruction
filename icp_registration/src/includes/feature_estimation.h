@@ -6,36 +6,37 @@
 #include <pcl/io/io.h>
 #include <pcl/features/normal_3d.h>
 
-
-struct ObjectFeatures{
-
-	PointCloudRGB::Ptr points;
+struct ObjectFeatures {
+	PointCloudRGBPtr points;
 	SurfaceNormalsPtr normals;
-	PointCloudPtr keypoints;
+	PointCloudRGBPtr keypoints;
 	LocalDescriptorsPtr local_descriptors;
 	GlobalDescriptorsPtr global_descriptor;
 
 };
 
 SurfaceNormalsPtr
-estimateSurfaceNormals (const PointCloudPtr & input, float radius);
+estimateSurfaceNormals(const PointCloudRGBPtr & input, float radius);
 
-PointCloudPtr
-detectKeypoints (const PointCloudPtr & points, const SurfaceNormalsPtr & normals,
-                 float min_scale, int nr_octaves, int nr_scales_per_octave, float min_contrast);
+PointCloudRGBPtr
+detectKeypoints(const PointCloudRGBPtr & points,
+		const SurfaceNormalsPtr & normals, float min_scale, int nr_octaves,
+		int nr_scales_per_octave, float min_contrast);
 
 LocalDescriptorsPtr
-computeLocalDescriptors (const PointCloudPtr & points, const SurfaceNormalsPtr & normals, 
-                         const PointCloudPtr & keypoints, float feature_radius);
+computeLocalDescriptors(const PointCloudRGBPtr & points,
+		const SurfaceNormalsPtr & normals, const PointCloudRGBPtr & keypoints,
+		float feature_radius);
 
 GlobalDescriptorsPtr
-computeGlobalDescriptor (const PointCloudPtr & points, const SurfaceNormalsPtr & normals);
+computeGlobalDescriptor(const PointCloudRGBPtr & points,
+		const SurfaceNormalsPtr & normals);
 
 ObjectFeatures
-computeFeatures (const PointCloudPtr & input);
+computeFeatures(const PointCloudRGBPtr & input);
 
 // Computer surface normal and curvature
 
-void computerSurfaceNormal(PointCloudPtr source_points, 
-				PointCloudNormal::Ptr points_with_normals);
+void computerSurfaceNormal(PointCloudRGBPtr source_points,
+		PointCloudNormalPtr points_with_normals);
 #endif

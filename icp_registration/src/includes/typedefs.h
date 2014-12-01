@@ -5,19 +5,18 @@
 #include <pcl/point_cloud.h>
 #include <pcl/point_representation.h>
 
-
 //convenient typedefs
 typedef pcl::PointXYZRGB PointRGB;
 typedef pcl::PointCloud<PointRGB> PointCloudRGB;
-typedef pcl::PointCloud<PointRGB>::Ptr PointCloudPtr;
-typedef pcl::PointCloud<PointRGB>::ConstPtr PointCloudConstPtr;
+typedef pcl::PointCloud<PointRGB>::Ptr PointCloudRGBPtr;
 
 typedef pcl::PointXYZRGBNormal PointRGBNormal;
-typedef pcl::PointCloud<PointRGBNormal> PointCloudNormalM;
+typedef pcl::PointCloud<PointRGBNormal> PointCloudRGBNormalM;
 typedef pcl::PointNormal PNormal;
 typedef pcl::PointCloud<PNormal> PointCloudNormal;
+typedef pcl::PointCloud<PNormal>::Ptr PointCloudNormalPtr;
 typedef pcl::PointWithScale PointWithScale;
-typedef pcl::PointCloud<PointWithScale> PointCloudScale;
+typedef pcl::PointCloud<PointWithScale> PointCloudWithScale;
 // Define "SurfaceNormals" to be a pcl::PointCloud of pcl::Normal points
 typedef pcl::Normal NormalT;
 typedef pcl::PointCloud<NormalT> SurfaceNormals;
@@ -35,44 +34,34 @@ typedef pcl::PointCloud<GlobalDescriptorT> GlobalDescriptors;
 typedef pcl::PointCloud<GlobalDescriptorT>::Ptr GlobalDescriptorsPtr;
 typedef pcl::PointCloud<GlobalDescriptorT>::ConstPtr GlobalDescriptorsConstPtr;
 
-struct PCD
-{
-    PointCloudRGB::Ptr cloud;
-    std::string f_name;
-    Eigen::Matrix4f Ti;
-
-    PCD() : cloud (new PointCloudRGB) {};
-};
-
-struct PCDComparator
-{
-    bool operator () (const PCD& p1, const PCD& p2)
-    {
-        return (p1.f_name < p2.f_name);
-    }
-};
-
-class MyPointRepresentation : public pcl::PointRepresentation <PNormal>
-{
-    using pcl::PointRepresentation<PNormal>::nr_dimensions_;
+class PCD {
 public:
-    MyPointRepresentation ()
-    {
-        // Define the number of dimensions
-        nr_dimensions_ = 4;
-    }
+	PointCloudRGBPtr cloud;
+	std::string f_name;
+	Eigen::Matrix4f Ti;
 
-    // Override the copyToFloatArray method to define our feature vector
-    virtual void copyToFloatArray (const PNormal &p, float * out) const
-    {
-        // < x, y, z, curvature >
-        out[0] = p.x;
-        out[1] = p.y;
-        out[2] = p.z;
-        out[3] = p.curvature;
-    }
+	PCD() :
+			cloud(new PointCloudRGB) {
+	}
+	;
 };
 
+class MyPointRepresentation: public pcl::PointRepresentation<PNormal> {
+	using pcl::PointRepresentation<PNormal>::nr_dimensions_;
+public:
+	MyPointRepresentation() {
+		// Define the number of dimensions
+		nr_dimensions_ = 4;
+	}
 
+	// Override the copyToFloatArray method to define our feature vector
+	virtual void copyToFloatArray(const PNormal &p, float * out) const {
+		// < x, y, z, curvature >
+		out[0] = p.x;
+		out[1] = p.y;
+		out[2] = p.z;
+		out[3] = p.curvature;
+	}
+};
 
 #endif
