@@ -1,0 +1,6 @@
+ 
+cmake -G "Eclipse CDT4 - Unix Makefiles" ../src
+
+./pairwise_incremental_registration inputList.txt --filter filterParams.txt --feature featureParams.txt --init initialParams.txt --refine refineParams.txt --global globalParams.txt
+./passthrough filterInputList.txt --params filterParams.txt
+./passthrough -p z 1 1.6

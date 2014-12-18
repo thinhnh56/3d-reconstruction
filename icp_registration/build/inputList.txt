@@ -1,0 +1,4 @@
+fitered_data/filtered0.pcd 
+fitered_data/filtered1.pcd 
+fitered_data/filtered2.pcd 
+fitered_data/filtered3.pcd 
